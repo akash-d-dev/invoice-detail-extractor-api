@@ -1,6 +1,7 @@
 const { HumanMessage } = require('@langchain/core/messages')
 const { ChatGoogleGenerativeAI } = require('@langchain/google-genai')
 const { z } = require('zod')
+const Constants = require('./Constants.js')
 
 // Function to convert image file buffer to Base64 Data URL format
 function fileToGenerativePart(imageFile) {
@@ -36,11 +37,13 @@ async function lcProcessInvoice(image) {
     )
   })
 
+  console.log(Constants.GEMINI_AI_MODEL, Constants.GEMINI_API_KEY)
+
   // Initialize the ChatGoogleGenerativeAI model
   const model = new ChatGoogleGenerativeAI({
-    model: 'gemini-1.5-pro',
+    model: Constants.GEMINI_AI_MODEL,
     temperature: 0,
-    apiKey: process.env.GOOGLE_API_KEY // Use env variable for security
+    apiKey: Constants.GEMINI_API_KEY,
   })
 
   // Create the structured output chain
