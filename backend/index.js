@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const Routes = require('./routes/index.js')
 const morgan = require('morgan')
+const cors = require('cors');
 const Constants = require('./utils/Constants.js')
 
 const app = express()
@@ -30,6 +31,7 @@ if(
 app.use(express.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 app.use(morgan(morganFormat)) // Logging middleware
+app.use(cors("*")) // Enable CORS for all origins
 
 // Routes
 app.get('/', (req, res) => {
